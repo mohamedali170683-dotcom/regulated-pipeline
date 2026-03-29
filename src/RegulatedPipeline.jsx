@@ -455,29 +455,56 @@ function IntroScreen({ onBegin }) {
 
         {/* Market context label */}
         <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", color: S.dim, textTransform: "uppercase", marginBottom: 20 }}>
-          Addressable demand across 3 regulated verticals
+          Compliance-driven demand across 3 regulated verticals
         </div>
 
-        {/* Key metrics — with contextual sublabels */}
+        {/* Key metrics — reframed as land-and-expand engine */}
         <div style={{ display: "flex", justifyContent: "center", gap: 48, marginBottom: 16 }}>
           <div>
             <div style={{ fontSize: 32, fontWeight: 800, color: S.cyan, marginBottom: 4 }}>{totalAccounts.toLocaleString()}</div>
             <div style={{ fontSize: 11, color: S.dim, textTransform: "uppercase", letterSpacing: "0.05em" }}>Regulated Entities</div>
-            <div style={{ fontSize: 10, color: S.dim, marginTop: 2, fontStyle: "italic" }}>filtered by ICP + TI need</div>
+            <div style={{ fontSize: 10, color: S.dim, marginTop: 2, fontStyle: "italic" }}>legally required to procure TI</div>
           </div>
           <div style={{ width: 1, background: S.border, alignSelf: "stretch" }} />
           <div>
             <div style={{ fontSize: 32, fontWeight: 800, color: S.cyan, marginBottom: 4 }}>{totalClosed}</div>
-            <div style={{ fontSize: 11, color: S.dim, textTransform: "uppercase", letterSpacing: "0.05em" }}>Year 1 Closes</div>
-            <div style={{ fontSize: 10, color: S.dim, marginTop: 2, fontStyle: "italic" }}>at 0.8% conversion rate</div>
+            <div style={{ fontSize: 11, color: S.dim, textTransform: "uppercase", letterSpacing: "0.05em" }}>Year 1 Land Deals</div>
+            <div style={{ fontSize: 10, color: S.dim, marginTop: 2, fontStyle: "italic" }}>each designed to expand in Y2</div>
           </div>
           <div style={{ width: 1, background: S.border, alignSelf: "stretch" }} />
           <div>
             <div style={{ fontSize: 32, fontWeight: 800, color: S.cyan, marginBottom: 4 }}>€{(totalRevenue/1000).toFixed(0)}K</div>
-            <div style={{ fontSize: 11, color: S.dim, textTransform: "uppercase", letterSpacing: "0.05em" }}>New Business Revenue</div>
-            <div style={{ fontSize: 10, color: S.dim, marginTop: 2, fontStyle: "italic" }}>conservative baseline</div>
+            <div style={{ fontSize: 11, color: S.dim, textTransform: "uppercase", letterSpacing: "0.05em" }}>Year 1 New ARR</div>
+            <div style={{ fontSize: 10, color: S.dim, marginTop: 2, fontStyle: "italic" }}>conservative · land-only baseline</div>
           </div>
         </div>
+
+        {/* Growth trajectory — the real incentive */}
+        <div style={{ maxWidth: 520, margin: "0 auto", marginBottom: 16 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 16, padding: "12px 20px", background: S.surfaceElevated, border: `1px solid ${S.border}`, borderRadius: 8 }}>
+            <div style={{ flex: 1, textAlign: "center" }}>
+              <div style={{ fontSize: 11, color: S.dim, marginBottom: 2 }}>YEAR 1</div>
+              <div style={{ fontSize: 16, fontWeight: 800, color: S.muted }}>€{(totalRevenue/1000).toFixed(0)}K</div>
+              <div style={{ fontSize: 9, color: S.dim }}>9 land deals</div>
+            </div>
+            <div style={{ color: S.dim, fontSize: 16 }}>→</div>
+            <div style={{ flex: 1, textAlign: "center" }}>
+              <div style={{ fontSize: 11, color: S.dim, marginBottom: 2 }}>YEAR 2</div>
+              <div style={{ fontSize: 16, fontWeight: 800, color: S.text }}>€1.2–1.5M</div>
+              <div style={{ fontSize: 9, color: S.dim }}>expansion + new cohort</div>
+            </div>
+            <div style={{ color: S.dim, fontSize: 16 }}>→</div>
+            <div style={{ flex: 1, textAlign: "center" }}>
+              <div style={{ fontSize: 11, color: S.dim, marginBottom: 2 }}>YEAR 3</div>
+              <div style={{ fontSize: 16, fontWeight: 800, color: S.cyan }}>€2M+</div>
+              <div style={{ fontSize: 9, color: S.dim }}>compounding pipeline</div>
+            </div>
+          </div>
+          <div style={{ fontSize: 10, color: S.dim, marginTop: 6, textAlign: "center", fontStyle: "italic" }}>
+            Land-and-expand model · 40-60% Y2 upsell on existing accounts · Non-discretionary budget — compliance-driven
+          </div>
+        </div>
+
         <div style={{ fontSize: 10, color: S.dim, marginBottom: 48, fontStyle: "italic" }}>
           Sources: European Commission, ENISA, BaFin, BSI · Conversion benchmarks: Gartner, ScaleVP, MarketJoy
         </div>

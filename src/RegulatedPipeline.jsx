@@ -133,7 +133,7 @@ const SEGMENTS = [
   {
     id: "dach-finance",
     name: "DACH Financial Services",
-    icon: "🏦",
+    icon: "FIN",
     regulation: "DORA + NIS2",
     headline: "DORA makes threat intelligence legally required for banks",
     accounts: 380,
@@ -168,7 +168,7 @@ const SEGMENTS = [
   {
     id: "eu-energy",
     name: "EU Energy & Critical Infrastructure",
-    icon: "⚡",
+    icon: "NRG",
     regulation: "NIS2 + CER Directive",
     headline: "CER resilience plans due July 2026 — energy companies need evidence of threat intelligence",
     accounts: 240,
@@ -202,7 +202,7 @@ const SEGMENTS = [
   {
     id: "dach-manufacturing",
     name: "DACH Manufacturing",
-    icon: "🏭",
+    icon: "MFG",
     regulation: "NIS2 + Cyber Resilience Act",
     headline: "Ransomware groups repeatedly hit German manufacturers — event-driven pipeline",
     accounts: 520,
@@ -288,7 +288,7 @@ function BiasCard({ biasKey, contextNote }) {
         style={{ display: "inline-flex", alignItems: "center", gap: 4, padding: "4px 10px",
           background: S.purpleLight, color: S.accent, borderRadius: 10, fontSize: 11,
           fontWeight: 600, cursor: "pointer", border: `1px solid ${S.accent}40` }}>
-        🧠 {b.name} — {open ? "hide research" : "why this works →"}
+        ▸ {b.name} — {open ? "hide research" : "why this works →"}
       </div>
       {open && (
         <div onClick={(e) => e.stopPropagation()}
@@ -330,7 +330,7 @@ function BiasTag({ biasKey }) {
       display: "inline-flex", alignItems: "center", gap: 3, padding: "2px 8px",
       background: S.purpleLight, color: S.accent, borderRadius: 10, fontSize: 10,
       fontWeight: 600, border: `1px solid ${S.accent}40`,
-    }}>🧠 {b.name}</span>
+    }}>▸ {b.name}</span>
   );
 }
 
@@ -348,7 +348,7 @@ function ThreatBriefPreview({ segId }) {
         style={{ display: "inline-flex", alignItems: "center", gap: 4, padding: "4px 10px",
           background: S.surfaceElevated, color: S.cyan, borderRadius: 10, fontSize: 11,
           fontWeight: 600, cursor: "pointer", border: `1px solid ${S.cyan}40` }}>
-        📄 {open ? "Hide" : "Preview"}: What this threat brief looks like
+        ◆ {open ? "Hide" : "Preview"}: What this threat brief looks like
       </div>
       {open && (
         <div onClick={(e) => e.stopPropagation()}
@@ -418,10 +418,10 @@ function IntroScreen({ onBegin }) {
   const totalRevenue = SEGMENTS.reduce((a, s) => a + parseInt(s.math.revenue.replace(/[€K]/g, '')) * 1000, 0);
 
   const features = [
-    { label: "Regulatory Mapping", icon: "⚖️" },
-    { label: "Buying Committee Intelligence", icon: "👥" },
-    { label: "Behavioral Science Layer", icon: "🧠" },
-    { label: "Pipeline Mathematics", icon: "📊" },
+    { label: "Regulatory Mapping", icon: (<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#818cf8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/><path d="M2 12l4-4 4 4M14 12l4-4 4 4"/></svg>) },
+    { label: "Buying Committee Intelligence", icon: (<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#818cf8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="7" r="3"/><path d="M2 21v-2a4 4 0 014-4h6a4 4 0 014 4v2"/><path d="M16 3.13a4 4 0 010 7.75"/><path d="M21 21v-2a4 4 0 00-3-3.87"/></svg>) },
+    { label: "Behavioral Science Layer", icon: (<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#818cf8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a7 7 0 017 7c0 3-1.5 5-3 6.5V18H8v-2.5C6.5 14 5 12 5 9a7 7 0 017-7z"/><path d="M9 18h6v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/><path d="M10 9h.01M14 9h.01"/></svg>) },
+    { label: "Pipeline Mathematics", icon: (<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#818cf8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 21H4.6c-.56 0-.84 0-1.05-.11a1 1 0 01-.44-.44C3 20.24 3 19.96 3 19.4V3"/><path d="M7 14l4-4 4 4 6-6"/></svg>) },
   ];
 
   return (
@@ -578,7 +578,7 @@ export default function RegulatedPipeline() {
                   }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <div>
-                      <span style={{ fontSize: 16, marginRight: 8 }}>{seg.icon}</span>
+                      <span style={{ fontSize: 9, fontWeight: 800, marginRight: 8, padding: "3px 6px", background: S.accentDark, color: S.accentLight, borderRadius: 4, letterSpacing: "0.05em", fontFamily: "monospace" }}>{seg.icon}</span>
                       <span style={{ fontSize: 14, fontWeight: 700 }}>{seg.name}</span>
                       <span style={{ fontSize: 11, color: S.muted, marginLeft: 8 }}>{seg.regulation}</span>
                     </div>
@@ -770,7 +770,7 @@ export default function RegulatedPipeline() {
                     return (
                       <div key={key} style={{ background: S.surface, border: `1px solid ${S.border}`, borderRadius: 8, padding: "16px 18px" }}>
                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 }}>
-                          <span style={{ fontWeight: 700, fontSize: 14, color: S.text }}>🧠 {b.name}</span>
+                          <span style={{ fontWeight: 700, fontSize: 14, color: S.text }}>▸ {b.name}</span>
                           <span style={{ fontSize: 10, color: S.cyan, fontWeight: 600 }}>{b.source}</span>
                         </div>
                         <div style={{ fontSize: 12, color: S.text, lineHeight: 1.6, marginBottom: 8, fontWeight: 500 }}>→ {b.application}</div>

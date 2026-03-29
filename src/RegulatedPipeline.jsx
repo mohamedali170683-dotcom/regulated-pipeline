@@ -242,15 +242,18 @@ const STEPS = [
   { id: "biases", label: "Psychology Playbook" },
 ];
 
-// ─── STYLES ─────────────────────────────────────────────────────
+// ─── DARK CYBERSECURITY THEME ───────────────────────────────────
 const S = {
-  bg: "#fafafa", surface: "#ffffff", border: "#e5e7eb",
-  text: "#111827", muted: "#6b7280", dim: "#9ca3af",
-  accent: "#1d4ed8", accentLight: "#dbeafe", accentFaint: "#eff6ff",
-  red: "#dc2626", redLight: "#fef2f2",
-  green: "#059669", greenLight: "#ecfdf5",
-  orange: "#d97706", orangeLight: "#fffbeb",
-  purple: "#7c3aed", purpleLight: "#f5f3ff",
+  bg: "#0a0a0f", surface: "#12121a", surfaceElevated: "#1a1a2e",
+  border: "#1e293b", borderLight: "#2d3748",
+  text: "#e2e8f0", muted: "#94a3b8", dim: "#64748b",
+  accent: "#6366f1", accentLight: "#818cf8", accentDark: "#4f46e5",
+  accentFaint: "#1e1b4b",
+  cyan: "#06b6d4",
+  red: "#ef4444", redLight: "#7f1d1d",
+  green: "#10b981", greenLight: "#064e3b",
+  orange: "#f59e0b", orangeLight: "#78350f",
+  purple: "#a78bfa", purpleLight: "#1e1b4b",
 };
 
 // ─── INFO TOOLTIP ───────────────────────────────────────────────
@@ -261,12 +264,12 @@ function Info({ text }) {
       <span
         onMouseEnter={() => setShow(true)} onMouseLeave={() => setShow(false)}
         style={{ cursor: "help", display: "inline-flex", alignItems: "center", justifyContent: "center",
-          width: 16, height: 16, borderRadius: "50%", background: S.accentLight, color: S.accent,
-          fontSize: 10, fontWeight: 700, lineHeight: 1 }}>?</span>
+          width: 16, height: 16, borderRadius: "50%", background: "rgba(99, 102, 241, 0.2)", color: S.cyan,
+          fontSize: 10, fontWeight: 700, lineHeight: 1, border: `1px solid ${S.cyan}40` }}>?</span>
       {show && (
         <div style={{ position: "absolute", bottom: "calc(100% + 6px)", left: "50%", transform: "translateX(-50%)",
-          background: S.text, color: "#fff", padding: "8px 12px", borderRadius: 6, fontSize: 11,
-          lineHeight: 1.5, width: 320, maxHeight: 300, overflowY: "auto", zIndex: 99, boxShadow: "0 4px 12px rgba(0,0,0,0.15)" }}>
+          background: S.surfaceElevated, color: S.text, padding: "8px 12px", borderRadius: 6, fontSize: 11,
+          lineHeight: 1.5, width: 320, maxHeight: 300, overflowY: "auto", zIndex: 99, boxShadow: "0 4px 20px rgba(0,0,0,0.4)", border: `1px solid ${S.border}` }}>
           {text}
         </div>
       )}
@@ -283,15 +286,15 @@ function BiasCard({ biasKey, contextNote }) {
     <div style={{ marginTop: 8 }}>
       <div onClick={(e) => { e.stopPropagation(); setOpen(!open); }}
         style={{ display: "inline-flex", alignItems: "center", gap: 4, padding: "4px 10px",
-          background: S.purpleLight, color: S.purple, borderRadius: 10, fontSize: 11,
-          fontWeight: 600, cursor: "pointer", border: `1px solid ${S.purple}22` }}>
+          background: S.purpleLight, color: S.accent, borderRadius: 10, fontSize: 11,
+          fontWeight: 600, cursor: "pointer", border: `1px solid ${S.accent}40` }}>
         🧠 {b.name} — {open ? "hide research" : "why this works →"}
       </div>
       {open && (
         <div onClick={(e) => e.stopPropagation()}
-          style={{ marginTop: 8, border: `1px solid ${S.purple}22`, borderRadius: 8, overflow: "hidden" }}>
+          style={{ marginTop: 8, border: `1px solid ${S.border}`, borderRadius: 8, overflow: "hidden", background: S.surface }}>
           {/* Disclaimer */}
-          <div style={{ padding: "8px 12px", background: `${S.purple}08`, fontSize: 10, color: S.muted, lineHeight: 1.5, borderBottom: `1px solid ${S.purple}11` }}>
+          <div style={{ padding: "8px 12px", background: S.surfaceElevated, fontSize: 10, color: S.dim, lineHeight: 1.5, borderBottom: `1px solid ${S.border}` }}>
             {BIAS_DISCLAIMER}
           </div>
           {/* Source */}
@@ -307,7 +310,7 @@ function BiasCard({ biasKey, contextNote }) {
 
             {contextNote && (
               <>
-                <div style={{ fontSize: 10, fontWeight: 700, color: S.accent, textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 4 }}>In this specific context</div>
+                <div style={{ fontSize: 10, fontWeight: 700, color: S.cyan, textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 4 }}>In this specific context</div>
                 <div style={{ fontSize: 11, color: S.text, lineHeight: 1.6 }}>{contextNote}</div>
               </>
             )}
@@ -325,8 +328,8 @@ function BiasTag({ biasKey }) {
   return (
     <span style={{
       display: "inline-flex", alignItems: "center", gap: 3, padding: "2px 8px",
-      background: S.purpleLight, color: S.purple, borderRadius: 10, fontSize: 10,
-      fontWeight: 600, border: `1px solid ${S.purple}22`,
+      background: S.purpleLight, color: S.accent, borderRadius: 10, fontSize: 10,
+      fontWeight: 600, border: `1px solid ${S.accent}40`,
     }}>🧠 {b.name}</span>
   );
 }
@@ -336,70 +339,70 @@ function ThreatBriefPreview({ segId }) {
   const brief = THREAT_BRIEFS[segId];
   if (!brief) return null;
   const [open, setOpen] = useState(false);
-  const riskColors = { H: "#dc2626", M: "#d97706", L: "#059669" };
-  const riskBg = { H: "#fef2f2", M: "#fffbeb", L: "#ecfdf5" };
+  const riskColors = { H: S.red, M: S.orange, L: S.green };
+  const riskBg = { H: S.redLight, M: S.orangeLight, L: S.greenLight };
 
   return (
     <div style={{ marginTop: 10 }}>
       <div onClick={(e) => { e.stopPropagation(); setOpen(!open); }}
         style={{ display: "inline-flex", alignItems: "center", gap: 4, padding: "4px 10px",
-          background: "#1e1b4b", color: "#e0e7ff", borderRadius: 10, fontSize: 11,
-          fontWeight: 600, cursor: "pointer", border: "1px solid #312e81" }}>
+          background: S.surfaceElevated, color: S.cyan, borderRadius: 10, fontSize: 11,
+          fontWeight: 600, cursor: "pointer", border: `1px solid ${S.cyan}40` }}>
         📄 {open ? "Hide" : "Preview"}: What this threat brief looks like
       </div>
       {open && (
         <div onClick={(e) => e.stopPropagation()}
-          style={{ marginTop: 8, borderRadius: 8, overflow: "hidden", border: "1px solid #312e81" }}>
+          style={{ marginTop: 8, borderRadius: 8, overflow: "hidden", border: `1px solid ${S.border}`, background: S.surface }}>
           {/* Header — QI brand style */}
-          <div style={{ background: "linear-gradient(135deg, #1e1b4b 0%, #312e81 100%)", padding: "14px 16px", color: "#fff" }}>
-            <div style={{ fontSize: 9, fontWeight: 600, letterSpacing: "0.1em", color: "#a5b4fc", textTransform: "uppercase", marginBottom: 4 }}>
+          <div style={{ background: `linear-gradient(135deg, ${S.accentDark} 0%, ${S.accent} 100%)`, padding: "14px 16px", color: "#fff" }}>
+            <div style={{ fontSize: 9, fontWeight: 600, letterSpacing: "0.1em", color: S.accentLight, textTransform: "uppercase", marginBottom: 4 }}>
               QUOINTELLIGENCE · THREAT LANDSCAPE REPORT · {brief.quarter}
             </div>
             <div style={{ fontSize: 14, fontWeight: 700 }}>{brief.title}</div>
           </div>
 
           {/* Threat rows */}
-          <div style={{ background: "#fff" }}>
+          <div style={{ background: S.surface }}>
             {brief.threats.map((t, i) => (
               <div key={i} style={{ display: "flex", alignItems: "center", gap: 12, padding: "10px 16px",
-                borderBottom: i < brief.threats.length - 1 ? "1px solid #e5e7eb" : "none" }}>
+                borderBottom: i < brief.threats.length - 1 ? `1px solid ${S.border}` : "none" }}>
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center", minWidth: 36 }}>
                   <span style={{ display: "flex", alignItems: "center", justifyContent: "center",
                     width: 28, height: 28, borderRadius: 4, fontWeight: 800, fontSize: 13, color: "#fff",
                     background: riskColors[t.risk] }}>{t.risk}</span>
-                  <span style={{ fontSize: 10, color: t.trend.includes("↑") ? "#dc2626" : "#6b7280", marginTop: 2 }}>{t.trend}</span>
+                  <span style={{ fontSize: 10, color: t.trend.includes("↑") ? S.red : S.muted, marginTop: 2 }}>{t.trend}</span>
                 </div>
                 <div style={{ flex: 1 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                    <span style={{ fontSize: 12, fontWeight: 700, color: "#111827" }}>{t.type}</span>
-                    <span style={{ fontSize: 10, color: "#6b7280" }}>— {t.actor}</span>
+                    <span style={{ fontSize: 12, fontWeight: 700, color: S.text }}>{t.type}</span>
+                    <span style={{ fontSize: 10, color: S.muted }}>— {t.actor}</span>
                   </div>
-                  <div style={{ fontSize: 11, color: "#6b7280", lineHeight: 1.5, marginTop: 2 }}>{t.detail}</div>
+                  <div style={{ fontSize: 11, color: S.muted, lineHeight: 1.5, marginTop: 2 }}>{t.detail}</div>
                 </div>
               </div>
             ))}
           </div>
 
           {/* MITRE ATT&CK strip */}
-          <div style={{ background: "#f9fafb", padding: "8px 16px", borderTop: "1px solid #e5e7eb" }}>
-            <div style={{ fontSize: 9, fontWeight: 700, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 4 }}>MITRE ATT&CK Techniques Observed</div>
+          <div style={{ background: S.surfaceElevated, padding: "8px 16px", borderTop: `1px solid ${S.border}` }}>
+            <div style={{ fontSize: 9, fontWeight: 700, color: S.muted, textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 4 }}>MITRE ATT&CK Techniques Observed</div>
             <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
               {brief.mitre.map((m, i) => (
-                <span key={i} style={{ fontSize: 10, padding: "2px 6px", background: "#fff", border: "1px solid #e5e7eb",
-                  borderRadius: 4, color: "#374151" }}>{m}</span>
+                <span key={i} style={{ fontSize: 10, padding: "2px 6px", background: S.surface, border: `1px solid ${S.border}`,
+                  borderRadius: 4, color: S.muted }}>{m}</span>
               ))}
             </div>
           </div>
 
           {/* Key insight */}
-          <div style={{ background: "#fffbeb", padding: "10px 16px", borderTop: "1px solid #fde68a" }}>
-            <div style={{ fontSize: 11, color: "#92400e", lineHeight: 1.5 }}>
-              <strong>Why this brief is the reciprocity move:</strong> {brief.keyInsight}
+          <div style={{ background: S.surfaceElevated, padding: "10px 16px", borderTop: `1px solid ${S.border}` }}>
+            <div style={{ fontSize: 11, color: S.muted, lineHeight: 1.5 }}>
+              <strong style={{ color: S.orange }}>Why this brief is the reciprocity move:</strong> {brief.keyInsight}
             </div>
           </div>
 
           {/* Format note */}
-          <div style={{ background: "#f9fafb", padding: "8px 16px", borderTop: "1px solid #e5e7eb", fontSize: 10, color: "#9ca3af", lineHeight: 1.5 }}>
+          <div style={{ background: S.surface, padding: "8px 16px", borderTop: `1px solid ${S.border}`, fontSize: 10, color: S.dim, lineHeight: 1.5 }}>
             Format based on QuoIntelligence's actual Q4 2025 Industrials Threat Landscape Report. Includes: threat pyramid (common → industry → targeted), risk matrix (likelihood × impact), MITRE ATT&CK mapping, and trend analysis. QI tracks 150+ threat actor groups and 480+ attack tools.
           </div>
         </div>
@@ -408,8 +411,101 @@ function ThreatBriefPreview({ segId }) {
   );
 }
 
+// ─── INTRO SCREEN ───────────────────────────────────────────────
+function IntroScreen({ onBegin }) {
+  const totalAccounts = SEGMENTS.reduce((a, s) => a + s.accounts, 0);
+  const totalClosed = SEGMENTS.reduce((a, s) => a + s.math.closed, 0);
+  const totalRevenue = SEGMENTS.reduce((a, s) => a + parseInt(s.math.revenue.replace(/[€K]/g, '')) * 1000, 0);
+
+  const features = [
+    { label: "Regulatory Mapping", icon: "⚖️" },
+    { label: "Buying Committee Intelligence", icon: "👥" },
+    { label: "Behavioral Science Layer", icon: "🧠" },
+    { label: "Pipeline Mathematics", icon: "📊" },
+  ];
+
+  return (
+    <div style={{ minHeight: "100vh", background: `linear-gradient(135deg, ${S.bg} 0%, #0f0f16 100%)`, color: S.text, fontFamily: "'Inter', -apple-system, sans-serif", fontSize: 13, display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "40px 20px" }}>
+
+      {/* Top section */}
+      <div></div>
+
+      {/* Center content */}
+      <div style={{ maxWidth: 680, margin: "0 auto", textAlign: "center" }}>
+
+        {/* QI Label */}
+        <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: "0.15em", color: S.accent, textTransform: "uppercase", marginBottom: 32 }}>
+          QUOINTELLIGENCE
+        </div>
+
+        {/* Main title */}
+        <div style={{ fontSize: 48, fontWeight: 800, color: S.text, marginBottom: 12, lineHeight: 1.1 }}>
+          Pipeline Operations Plan
+        </div>
+
+        {/* Subtitle */}
+        <div style={{ fontSize: 16, color: S.muted, marginBottom: 40, fontWeight: 500 }}>
+          Regulated European Markets · H2 2025 – H1 2026
+        </div>
+
+        {/* Key metrics */}
+        <div style={{ display: "flex", justifyContent: "center", gap: 40, marginBottom: 48 }}>
+          <div>
+            <div style={{ fontSize: 32, fontWeight: 800, color: S.cyan, marginBottom: 4 }}>{totalAccounts.toLocaleString()}</div>
+            <div style={{ fontSize: 11, color: S.dim, textTransform: "uppercase", letterSpacing: "0.05em" }}>Accounts</div>
+          </div>
+          <div>
+            <div style={{ fontSize: 32, fontWeight: 800, color: S.cyan, marginBottom: 4 }}>{totalClosed}</div>
+            <div style={{ fontSize: 11, color: S.dim, textTransform: "uppercase", letterSpacing: "0.05em" }}>Projected Deals</div>
+          </div>
+          <div>
+            <div style={{ fontSize: 32, fontWeight: 800, color: S.cyan, marginBottom: 4 }}>€{(totalRevenue/1000).toFixed(0)}K</div>
+            <div style={{ fontSize: 11, color: S.dim, textTransform: "uppercase", letterSpacing: "0.05em" }}>Year 1</div>
+          </div>
+        </div>
+
+        {/* Description */}
+        <div style={{ fontSize: 14, color: S.muted, lineHeight: 1.7, marginBottom: 48, maxWidth: 560, margin: "0 auto 48px" }}>
+          EU regulations like DORA, NIS2, and CER are making threat intelligence mandatory — not optional. This creates predictable buying cycles across regulated industries. This tool maps every step: regulatory triggers, buying committees, behavioral principles, and pipeline mathematics for regulated European markets.
+        </div>
+
+        {/* Feature cards */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 48 }}>
+          {features.map((f, i) => (
+            <div key={i} style={{ background: S.surfaceElevated, border: `1px solid ${S.border}`, borderRadius: 8, padding: "16px", textAlign: "center" }}>
+              <div style={{ fontSize: 24, marginBottom: 8 }}>{f.icon}</div>
+              <div style={{ fontSize: 12, fontWeight: 600, color: S.text }}>{f.label}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* CTA Button */}
+        <button onClick={onBegin}
+          style={{
+            padding: "14px 32px", background: S.accent, color: "#fff",
+            border: "none", borderRadius: 8, fontSize: 14, fontWeight: 700,
+            cursor: "pointer", transition: "all 0.2s", letterSpacing: "0.05em",
+            boxShadow: `0 8px 20px rgba(99, 102, 241, 0.3)`,
+            marginBottom: 48,
+          }}
+          onMouseEnter={(e) => e.target.style.boxShadow = `0 12px 28px rgba(99, 102, 241, 0.4)`}
+          onMouseLeave={(e) => e.target.style.boxShadow = `0 8px 20px rgba(99, 102, 241, 0.3)`}>
+          Begin Analysis →
+        </button>
+      </div>
+
+      {/* Footer */}
+      <div style={{ textAlign: "center", fontSize: 10, color: S.dim, lineHeight: 1.6 }}>
+        <div>Prepared by Mohamed Ali Mohamed</div>
+        <div>Built with research from Kahneman, Cialdini, Shotton, and enterprise cybersecurity benchmarks</div>
+      </div>
+    </div>
+  );
+}
+
 // ─── MAIN COMPONENT ─────────────────────────────────────────────
 export default function RegulatedPipeline() {
+  const [showIntro, setShowIntro] = useState(true);
   const [step, setStep] = useState(0);
   const [segId, setSegId] = useState(null);
   const [expandedIdx, setExpandedIdx] = useState(null);
@@ -423,6 +519,10 @@ export default function RegulatedPipeline() {
 
   const canAdvance = step === 0 ? !!segId : true;
 
+  if (showIntro) {
+    return <IntroScreen onBegin={() => setShowIntro(false)} />;
+  }
+
   return (
     <div style={{ minHeight: "100vh", background: S.bg, color: S.text, fontFamily: "'Inter', -apple-system, sans-serif", fontSize: 13 }}>
 
@@ -431,7 +531,7 @@ export default function RegulatedPipeline() {
         <div style={{ maxWidth: 900, margin: "0 auto", padding: "14px 24px" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <div>
-              <div style={{ fontSize: 15, fontWeight: 700 }}>QuoIntelligence — Pipeline Operations Plan</div>
+              <div style={{ fontSize: 15, fontWeight: 700, color: S.text }}>QuoIntelligence — Pipeline Operations Plan</div>
               <div style={{ fontSize: 11, color: S.muted, marginTop: 1 }}>
                 {totalAccounts.toLocaleString()} accounts · {totalClosed} projected deals · €{(totalRevenue/1000).toFixed(0)}K Year 1
                 <Info text="Phased execution: Finance Q1-Q2, Manufacturing Q2-Q3, Energy Q3-Q4. Resourcing: 1 VP Marketing + 1-2 SDRs + content. Conversion benchmarked against Gartner, ScaleVP, MarketJoy enterprise cybersecurity data." />
@@ -449,9 +549,10 @@ export default function RegulatedPipeline() {
             <button key={s.id} onClick={() => { if (i === 0 || segId) setStep(i); }}
               style={{
                 flex: 1, padding: "6px 0", border: "none", cursor: (i === 0 || segId) ? "pointer" : "default",
-                background: i === step ? S.accent : i < step ? S.accentLight : S.bg,
-                color: i === step ? "#fff" : i < step ? S.accent : S.dim,
+                background: i === step ? S.accent : i < step ? S.accentDark : S.surfaceElevated,
+                color: i === step ? "#fff" : i < step ? S.accentLight : S.dim,
                 fontSize: 11, fontWeight: 600, borderRadius: i === 0 ? "4px 0 0 4px" : i === STEPS.length - 1 ? "0 4px 4px 0" : 0,
+                transition: "all 0.15s",
               }}>
               {s.label}
             </button>
@@ -464,16 +565,16 @@ export default function RegulatedPipeline() {
         {/* ═══ STEP 0: SEGMENT SELECT ═══════════════════════ */}
         {currentStep.id === "segment" && (
           <div>
-            <div style={{ fontSize: 18, fontWeight: 700, marginBottom: 4 }}>Which segment are you planning for?</div>
+            <div style={{ fontSize: 18, fontWeight: 700, marginBottom: 4, color: S.text }}>Which segment are you planning for?</div>
             <div style={{ fontSize: 12, color: S.muted, marginBottom: 20 }}>Three regulated verticals where threat intelligence is mandatory, not optional.</div>
 
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
               {SEGMENTS.map(seg => (
                 <button key={seg.id} onClick={() => setSegId(seg.id)}
                   style={{
-                    textAlign: "left", padding: "16px 20px", background: segId === seg.id ? S.accentFaint : S.surface,
+                    textAlign: "left", padding: "16px 20px", background: segId === seg.id ? S.surfaceElevated : S.surface,
                     border: `2px solid ${segId === seg.id ? S.accent : S.border}`, borderRadius: 8,
-                    cursor: "pointer", transition: "all 0.15s",
+                    cursor: "pointer", transition: "all 0.15s", color: S.text,
                   }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <div>
@@ -498,7 +599,7 @@ export default function RegulatedPipeline() {
         {/* ═══ STEP 1: BUYING COMMITTEE ═════════════════════ */}
         {currentStep.id === "committee" && seg && (
           <div>
-            <div style={{ fontSize: 18, fontWeight: 700, marginBottom: 4 }}>Who's in the room?</div>
+            <div style={{ fontSize: 18, fontWeight: 700, marginBottom: 4, color: S.text }}>Who's in the room?</div>
             <div style={{ fontSize: 12, color: S.muted, marginBottom: 4 }}>
               {seg.committee.length} stakeholders · Click any role to see messaging + psychology
               <Info text={`Enterprise cybersecurity purchases involve 6-10 stakeholders (Gartner). ${seg.name} committee mapped based on regulatory structure and buying authority.`} />
@@ -512,12 +613,12 @@ export default function RegulatedPipeline() {
                 <div key={i} onClick={() => setExpandedIdx(expandedIdx === i ? null : i)}
                   style={{
                     background: S.surface, border: `1px solid ${expandedIdx === i ? S.accent : S.border}`,
-                    borderRadius: 8, padding: "12px 16px", cursor: "pointer", transition: "all 0.15s",
+                    borderRadius: 8, padding: "12px 16px", cursor: "pointer", transition: "all 0.15s", color: S.text,
                   }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                       <span style={{ fontWeight: 700, fontSize: 13 }}>{p.role}</span>
-                      <span style={{ fontSize: 10, padding: "1px 6px", background: S.accentLight, color: S.accent, borderRadius: 8, fontWeight: 600 }}>{p.tag}</span>
+                      <span style={{ fontSize: 10, padding: "1px 6px", background: S.accentFaint, color: S.accentLight, borderRadius: 8, fontWeight: 600 }}>{p.tag}</span>
                     </div>
                     <BiasTag biasKey={p.bias}  />
                   </div>
@@ -525,9 +626,9 @@ export default function RegulatedPipeline() {
                   {expandedIdx === i && (
                     <div style={{ marginTop: 10, borderTop: `1px solid ${S.border}`, paddingTop: 10 }}>
                       <div style={{ fontSize: 11, color: S.dim, marginBottom: 6 }}>PRIORITIES: {p.priority}</div>
-                      <div style={{ background: S.accentFaint, borderRadius: 6, padding: "10px 12px", marginBottom: 4 }}>
-                        <div style={{ fontSize: 11, fontWeight: 700, color: S.accent, marginBottom: 3 }}>WHAT TO SAY</div>
-                        <div style={{ fontSize: 12, lineHeight: 1.6 }}>{p.msg}</div>
+                      <div style={{ background: S.surfaceElevated, borderRadius: 6, padding: "10px 12px", marginBottom: 4, border: `1px solid ${S.border}` }}>
+                        <div style={{ fontSize: 11, fontWeight: 700, color: S.cyan, marginBottom: 3 }}>WHAT TO SAY</div>
+                        <div style={{ fontSize: 12, lineHeight: 1.6, color: S.text }}>{p.msg}</div>
                       </div>
                       <BiasCard biasKey={p.bias} contextNote={`For the ${p.role}: ${BIASES[p.bias]?.application}`} />
                     </div>
@@ -541,7 +642,7 @@ export default function RegulatedPipeline() {
         {/* ═══ STEP 2: OUTREACH SEQUENCE ════════════════════ */}
         {currentStep.id === "sequence" && seg && (
           <div>
-            <div style={{ fontSize: 18, fontWeight: 700, marginBottom: 4 }}>Week-by-week outreach plan</div>
+            <div style={{ fontSize: 18, fontWeight: 700, marginBottom: 4, color: S.text }}>Week-by-week outreach plan</div>
             <div style={{ fontSize: 12, color: S.muted, marginBottom: 16 }}>
               {seg.sequence.length} phases over {seg.math.weeks} weeks · Each phase maps to a behavioral principle
             </div>
@@ -550,10 +651,10 @@ export default function RegulatedPipeline() {
               {seg.sequence.map((s, i) => (
                 <div key={i} onClick={() => setExpandedIdx(expandedIdx === i ? null : i)}
                   style={{ background: S.surface, border: `1px solid ${expandedIdx === i ? S.accent : S.border}`,
-                    borderRadius: 8, padding: "12px 16px", cursor: "pointer" }}>
+                    borderRadius: 8, padding: "12px 16px", cursor: "pointer", color: S.text }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                      <span style={{ fontSize: 11, fontWeight: 800, color: S.accent, minWidth: 55 }}>Wk {s.week}</span>
+                      <span style={{ fontSize: 11, fontWeight: 800, color: S.cyan, minWidth: 55 }}>Wk {s.week}</span>
                       <span style={{ fontSize: 13, fontWeight: 700 }}>{s.phase}</span>
                     </div>
                     <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
@@ -578,7 +679,7 @@ export default function RegulatedPipeline() {
         {/* ═══ STEP 3: PIPELINE MATH ═══════════════════════ */}
         {currentStep.id === "math" && seg && (
           <div>
-            <div style={{ fontSize: 18, fontWeight: 700, marginBottom: 4 }}>Pipeline conversion model</div>
+            <div style={{ fontSize: 18, fontWeight: 700, marginBottom: 4, color: S.text }}>Pipeline conversion model</div>
             <div style={{ fontSize: 12, color: S.muted, marginBottom: 16 }}>
               Conservative assumptions benchmarked against enterprise cybersecurity data
               <Info text="Enterprise cybersecurity: 0.5-1.2% account-to-close (MarketJoy/Gartner), 20-25% enterprise win rate (ScaleVP), 6-18 month cycles. Cybersecurity MQL-to-SQL: 15-18%." />
@@ -596,13 +697,13 @@ export default function RegulatedPipeline() {
               ].map((row, i) => (
                 <div key={i} style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: i < 5 ? 8 : 0 }}>
                   <div style={{ width: 100, fontSize: 12, color: S.muted, textAlign: "right" }}>{row.label}</div>
-                  <div style={{ flex: 1, background: S.bg, borderRadius: 4, height: 24, position: "relative", overflow: "hidden" }}>
+                  <div style={{ flex: 1, background: S.surfaceElevated, borderRadius: 4, height: 24, position: "relative", overflow: "hidden", border: `1px solid ${S.border}` }}>
                     <div style={{
                       position: "absolute", left: 0, top: 0, height: "100%", borderRadius: 4,
                       width: `${Math.max(3, (row.val / seg.math.accounts) * 100)}%`,
-                      background: row.color, opacity: 0.15,
+                      background: `linear-gradient(90deg, ${row.color}, ${row.color}dd)`, opacity: 0.8,
                     }} />
-                    <div style={{ position: "relative", padding: "0 8px", lineHeight: "24px", fontSize: 12, fontWeight: 600 }}>
+                    <div style={{ position: "relative", padding: "0 8px", lineHeight: "24px", fontSize: 12, fontWeight: 600, color: S.text }}>
                       {row.val}
                     </div>
                   </div>
@@ -611,7 +712,7 @@ export default function RegulatedPipeline() {
               ))}
 
               <div style={{ marginTop: 16, display: "flex", justifyContent: "space-between", padding: "12px 16px",
-                background: S.greenLight, borderRadius: 6 }}>
+                background: `linear-gradient(135deg, ${S.greenLight} 0%, #0b3a2a 100%)`, borderRadius: 6, border: `1px solid ${S.green}40` }}>
                 <div>
                   <span style={{ fontSize: 20, fontWeight: 800, color: S.green }}>{seg.math.revenue}</span>
                   <span style={{ fontSize: 12, color: S.muted, marginLeft: 8 }}>projected revenue</span>
@@ -628,8 +729,8 @@ export default function RegulatedPipeline() {
             <div style={{ marginTop: 16, background: S.surface, border: `1px solid ${S.border}`, borderRadius: 8, padding: 16 }}>
               <div style={{ fontSize: 11, fontWeight: 600, color: S.muted, marginBottom: 8 }}>YEAR 1 TOTAL — ALL SEGMENTS</div>
               <div style={{ display: "flex", gap: 20 }}>
-                <div><span style={{ fontSize: 20, fontWeight: 800 }}>{totalAccounts.toLocaleString()}</span><span style={{ fontSize: 11, color: S.muted, marginLeft: 4 }}>accounts</span></div>
-                <div><span style={{ fontSize: 20, fontWeight: 800 }}>{totalClosed}</span><span style={{ fontSize: 11, color: S.muted, marginLeft: 4 }}>closed deals</span></div>
+                <div><span style={{ fontSize: 20, fontWeight: 800, color: S.text }}>{totalAccounts.toLocaleString()}</span><span style={{ fontSize: 11, color: S.muted, marginLeft: 4 }}>accounts</span></div>
+                <div><span style={{ fontSize: 20, fontWeight: 800, color: S.text }}>{totalClosed}</span><span style={{ fontSize: 11, color: S.muted, marginLeft: 4 }}>closed deals</span></div>
                 <div><span style={{ fontSize: 20, fontWeight: 800, color: S.green }}>€{(totalRevenue/1000).toFixed(0)}K</span><span style={{ fontSize: 11, color: S.muted, marginLeft: 4 }}>revenue</span></div>
               </div>
               <div style={{ fontSize: 11, color: S.dim, marginTop: 8, lineHeight: 1.5 }}>
@@ -642,14 +743,14 @@ export default function RegulatedPipeline() {
         {/* ═══ STEP 4: PSYCHOLOGY PLAYBOOK ══════════════════ */}
         {currentStep.id === "biases" && seg && (
           <div>
-            <div style={{ fontSize: 18, fontWeight: 700, marginBottom: 4 }}>Psychology playbook for {seg.name}</div>
+            <div style={{ fontSize: 18, fontWeight: 700, marginBottom: 4, color: S.text }}>Psychology playbook for {seg.name}</div>
             <div style={{ fontSize: 12, color: S.muted, marginBottom: 16 }}>
               Behavioral principles mapped to each stage of the deal cycle
               <Info text="Sources: Cialdini (Influence, Pre-Suasion), Kahneman (Thinking Fast & Slow), Thaler/Sunstein (Nudge), Shotton (Choice Factory), Harhut (Behavioral Science in Marketing), + CISO-specific research from Gartner, Security Magazine, Computer Weekly." />
             </div>
 
             {/* Disclaimer */}
-            <div style={{ padding: "10px 14px", background: S.purpleLight, borderRadius: 6, marginBottom: 16, fontSize: 11, lineHeight: 1.6, color: S.muted }}>
+            <div style={{ padding: "10px 14px", background: S.purpleLight, borderRadius: 6, marginBottom: 16, fontSize: 11, lineHeight: 1.6, color: S.muted, border: `1px solid ${S.border}` }}>
               {BIAS_DISCLAIMER}
             </div>
 
@@ -669,15 +770,15 @@ export default function RegulatedPipeline() {
                     return (
                       <div key={key} style={{ background: S.surface, border: `1px solid ${S.border}`, borderRadius: 8, padding: "16px 18px" }}>
                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 }}>
-                          <span style={{ fontWeight: 700, fontSize: 14 }}>🧠 {b.name}</span>
-                          <span style={{ fontSize: 10, color: S.purple, fontWeight: 600 }}>{b.source}</span>
+                          <span style={{ fontWeight: 700, fontSize: 14, color: S.text }}>🧠 {b.name}</span>
+                          <span style={{ fontSize: 10, color: S.cyan, fontWeight: 600 }}>{b.source}</span>
                         </div>
                         <div style={{ fontSize: 12, color: S.text, lineHeight: 1.6, marginBottom: 8, fontWeight: 500 }}>→ {b.application}</div>
 
                         {/* Where it's used */}
                         <div style={{ display: "flex", gap: 12, fontSize: 11, marginBottom: 10 }}>
                           {committeeUses.length > 0 && (
-                            <span style={{ padding: "2px 8px", background: S.accentLight, color: S.accent, borderRadius: 8 }}>Committee: {committeeUses.join(", ")}</span>
+                            <span style={{ padding: "2px 8px", background: S.accentFaint, color: S.accentLight, borderRadius: 8 }}>Committee: {committeeUses.join(", ")}</span>
                           )}
                           {sequenceUses.length > 0 && (
                             <span style={{ padding: "2px 8px", background: S.greenLight, color: S.green, borderRadius: 8 }}>Outreach: {sequenceUses.join(" → ")}</span>
@@ -685,7 +786,7 @@ export default function RegulatedPipeline() {
                         </div>
 
                         {/* Research evidence */}
-                        <div style={{ padding: "10px 12px", background: S.bg, borderRadius: 6 }}>
+                        <div style={{ padding: "10px 12px", background: S.surfaceElevated, borderRadius: 6, border: `1px solid ${S.border}` }}>
                           <div style={{ fontSize: 10, fontWeight: 700, color: S.purple, textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 4 }}>Research evidence</div>
                           <div style={{ fontSize: 11, color: S.muted, lineHeight: 1.6, marginBottom: 8 }}>{b.evidence}</div>
                           <div style={{ fontSize: 10, fontWeight: 700, color: S.purple, textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 4 }}>How it applies</div>
@@ -696,8 +797,7 @@ export default function RegulatedPipeline() {
                   })}
                 </div>
               );
-            })()}
-          </div>
+            })()}</div>
         )}
 
         {/* ─── NAVIGATION ──────────────────────────────────── */}
@@ -707,7 +807,7 @@ export default function RegulatedPipeline() {
             style={{
               padding: "8px 20px", border: `1px solid ${S.border}`, borderRadius: 6,
               background: S.surface, fontSize: 12, fontWeight: 600, cursor: step === 0 ? "default" : "pointer",
-              color: step === 0 ? S.dim : S.text, opacity: step === 0 ? 0.5 : 1,
+              color: step === 0 ? S.dim : S.text, opacity: step === 0 ? 0.5 : 1, transition: "all 0.2s",
             }}>← Back</button>
 
           {step < STEPS.length - 1 ? (
@@ -716,7 +816,7 @@ export default function RegulatedPipeline() {
               style={{
                 padding: "8px 20px", border: "none", borderRadius: 6,
                 background: canAdvance ? S.accent : S.dim, color: "#fff",
-                fontSize: 12, fontWeight: 600, cursor: canAdvance ? "pointer" : "default",
+                fontSize: 12, fontWeight: 600, cursor: canAdvance ? "pointer" : "default", transition: "all 0.2s",
               }}>{STEPS[step + 1]?.label} →</button>
           ) : (
             <div style={{ fontSize: 11, color: S.dim, padding: "8px 0" }}>

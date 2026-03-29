@@ -448,25 +448,43 @@ function IntroScreen({ onBegin }) {
           Regulated European Markets · H2 2025 – H1 2026
         </div>
 
-        {/* Key metrics */}
-        <div style={{ display: "flex", justifyContent: "center", gap: 40, marginBottom: 48 }}>
-          <div>
-            <div style={{ fontSize: 32, fontWeight: 800, color: S.cyan, marginBottom: 4 }}>{totalAccounts.toLocaleString()}</div>
-            <div style={{ fontSize: 11, color: S.dim, textTransform: "uppercase", letterSpacing: "0.05em" }}>Accounts</div>
-          </div>
-          <div>
-            <div style={{ fontSize: 32, fontWeight: 800, color: S.cyan, marginBottom: 4 }}>{totalClosed}</div>
-            <div style={{ fontSize: 11, color: S.dim, textTransform: "uppercase", letterSpacing: "0.05em" }}>Projected Deals</div>
-          </div>
-          <div>
-            <div style={{ fontSize: 32, fontWeight: 800, color: S.cyan, marginBottom: 4 }}>€{(totalRevenue/1000).toFixed(0)}K</div>
-            <div style={{ fontSize: 11, color: S.dim, textTransform: "uppercase", letterSpacing: "0.05em" }}>Year 1</div>
-          </div>
+        {/* Description — before the numbers, so they have context */}
+        <div style={{ fontSize: 15, color: S.muted, lineHeight: 1.8, marginBottom: 40, maxWidth: 600, margin: "0 auto 40px" }}>
+          DORA, NIS2, and the CER Directive are making threat intelligence a legal requirement across European financial services, energy, and manufacturing. For the first time, regulated buyers <span style={{ color: S.text, fontWeight: 600 }}>must</span> procure external threat intelligence — creating a predictable, compliance-driven demand cycle.
         </div>
 
-        {/* Description */}
-        <div style={{ fontSize: 14, color: S.muted, lineHeight: 1.7, marginBottom: 48, maxWidth: 560, margin: "0 auto 48px" }}>
-          EU regulations like DORA, NIS2, and CER are making threat intelligence mandatory — not optional. This creates predictable buying cycles across regulated industries. This tool maps every step: regulatory triggers, buying committees, behavioral principles, and pipeline mathematics for regulated European markets.
+        {/* Market context label */}
+        <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", color: S.dim, textTransform: "uppercase", marginBottom: 20 }}>
+          Addressable demand across 3 regulated verticals
+        </div>
+
+        {/* Key metrics — with contextual sublabels */}
+        <div style={{ display: "flex", justifyContent: "center", gap: 48, marginBottom: 16 }}>
+          <div>
+            <div style={{ fontSize: 32, fontWeight: 800, color: S.cyan, marginBottom: 4 }}>{totalAccounts.toLocaleString()}</div>
+            <div style={{ fontSize: 11, color: S.dim, textTransform: "uppercase", letterSpacing: "0.05em" }}>Regulated Entities</div>
+            <div style={{ fontSize: 10, color: S.dim, marginTop: 2, fontStyle: "italic" }}>filtered by ICP + TI need</div>
+          </div>
+          <div style={{ width: 1, background: S.border, alignSelf: "stretch" }} />
+          <div>
+            <div style={{ fontSize: 32, fontWeight: 800, color: S.cyan, marginBottom: 4 }}>{totalClosed}</div>
+            <div style={{ fontSize: 11, color: S.dim, textTransform: "uppercase", letterSpacing: "0.05em" }}>Year 1 Closes</div>
+            <div style={{ fontSize: 10, color: S.dim, marginTop: 2, fontStyle: "italic" }}>at 0.8% conversion rate</div>
+          </div>
+          <div style={{ width: 1, background: S.border, alignSelf: "stretch" }} />
+          <div>
+            <div style={{ fontSize: 32, fontWeight: 800, color: S.cyan, marginBottom: 4 }}>€{(totalRevenue/1000).toFixed(0)}K</div>
+            <div style={{ fontSize: 11, color: S.dim, textTransform: "uppercase", letterSpacing: "0.05em" }}>New Business Revenue</div>
+            <div style={{ fontSize: 10, color: S.dim, marginTop: 2, fontStyle: "italic" }}>conservative baseline</div>
+          </div>
+        </div>
+        <div style={{ fontSize: 10, color: S.dim, marginBottom: 48, fontStyle: "italic" }}>
+          Sources: European Commission, ENISA, BaFin, BSI · Conversion benchmarks: Gartner, ScaleVP, MarketJoy
+        </div>
+
+        {/* What this tool does */}
+        <div style={{ fontSize: 13, color: S.muted, lineHeight: 1.7, marginBottom: 48, maxWidth: 560, margin: "0 auto 48px" }}>
+          This tool maps the complete go-to-market path — from regulatory trigger to closed deal — for each vertical. Every recommendation is grounded in enterprise cybersecurity benchmarks and behavioral science research.
         </div>
 
         {/* Feature cards */}
